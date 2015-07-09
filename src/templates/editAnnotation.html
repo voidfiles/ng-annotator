@@ -1,0 +1,12 @@
+<div class="annotator-outer annotator-editor">
+  <form class="annotator-widget" ng-submit="save()">
+    <ul class="annotator-listing">
+      <li class="annotator-item"><textarea ng-model="annotation.text"></textarea></li>
+    </ul>
+    <div class="annotator-controls">
+      <a ng-click="cancel()" class="annotator-cancel">Cancel</a>
+      <a ng-click="save()"
+         class="annotator-save annotator-focus">Save</a>
+    </div>
+  </form>
+</div>

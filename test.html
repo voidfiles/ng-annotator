@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Annotation Test</title>
+    <script type="text/javascript" src='public/bundle.js'></script>
+    <script type="text/javascript">
+    'use strict';
+    (function () {
+      angular.module('testApp', ['ngAnnotator'])
+        .controller('testController', function ($scope) {
+          $scope.annotations = localStorage.annotations && JSON.parse(localStorage.annotations) || [];
+          console.log("testController: loaded", $scope.annotations);
+
+          $scope.$watchCollection('annotations', function (newVal) {
+            localStorage.annotations = JSON.stringify(newVal);
+          });
+        })
+        .controller('viewAnnotationController', function ($scope, uiInstance, annotation) {
+          $scope.annotation = annotation;
+          console.log("see I changed the default");
+          $scope.edit = function () {
+            uiInstance.close('edit');
+          };
+
+          $scope.cancel = function () {
+            uiInstance.close('delete');
+          };
+
+        })
+        .service('viewAnnotation', function (movableAnnotationUI) {
+
+          return function (position, annotation) {
+            return movableAnnotationUI(position, 'src/templates/viewAnnotation.html', 'viewAnnotationController', annotation);
+          };
+        });
+
+    })();
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/openannotation/annotator/master/css/annotator.css">
+    <style type="text/css">
+      .content {
+        max-width: 50%;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body ng-app='testApp' ng-controller='testController'>
+    <div class='content' ng-annotator ng-model='annotations'>
+      <p><strong>In 1961, the name of Marshall McLuhan was unknown to everyone but his English students at the University of Toronto — and a coterie of academic admirers who followed his abstruse articles in small-circulation quarterlies. But then came two remarkable books — The Gutenberg Galaxy (1962) and Understanding Media (1964) — and the graying professor from Canada’s western hinterlands soon found himself characterized by the San Francisco Chronicle as “the hottest academic property around.” He has since won a world-wide following for his brilliant — and frequently baffling — theories about the impact of the media on man; and his name has entered the French language as mucluhanisme, a synonym for the world of pop culture.<br>
+      </strong><br>
+      <span id="more-1025"></span>Though his books are written in a difficult style — at once enigmatic, epigrammatic and overgrown with arcane literary and historic allusions — the revolutionary ideas lurking in them have made McLuhan a best-selling author. Despite protests from a legion of outraged scholastics and old-guard humanists who claim that McLuhan’s ideas range from demented to dangerous, his free-for-all theorizing has attracted the attention of top executives at General Motors (who paid him a handsome fee to inform them that automobiles were a thing of the past), Bell Telephone (to whom he explained that they didn’t really understand the function of the telephone) and a leading package-design house (which was told that packages will soon be obsolete). Anteing up $5000, another huge corporation asked him to predict — via closed-circuit television — what their own products will be used for in the future; and Canada’s turned-on Prime Minister Pierre Trudeau engages him in monthly bull sessions designed to improve his television image.</p>
+      <p>McLuhan’s observations — “probes,” he prefers to call them — are riddled with such flamboyantly undecipherable aphorisms as “The electric light is pure information” and “People don’t actually read newspapers — they get into them every morning like a hot bath.” Of his own work, McLuhan has remarked: “I don’t pretend to understand it. After all, my stuff is very difficult.” Despite his convoluted syntax, flashy metaphors and word-playful one-liners, however, McLuhan’s basic thesis is relatively simple.</p>
+      <p>McLuhan contends that all media — in and of themselves and regardless of the messages they communicate — exert a compelling influence on man and society. Prehistoric, or tribal, man existed in a harmonious balance of the senses, perceiving the world equally through hearing, smell, touch, sight and taste. But technological innovations are extensions of human abilities and senses that alter this sensory balance — an alteration that, in turn, inexorably reshapes the society that created the technology. According to McLuhan, there have been three basic technological innovations: the invention of the phonetic alphabet, which jolted tribal man out of his sensory balance and gave dominance to the eye; the introduction of movable type in the 16th Century, which accelerated this process; and the invention of the telegraph in 1844, which heralded an electronics revolution that will ultimately retribalize man by restoring his sensory balance. McLuhan has made it his business to explain and extrapolate the repercussions of this electronic revolution.</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<div class="annotator-outer annotator-viewer">
+  <ul class="annotator-widget annotator-listing">
+    <li class="annotator-annotation annotator-item">
+      <span class="annotator-controls">
+        <button type="button"
+                title="Edit"
+                class="annotator-edit" ng-click='edit()'>Edit</button>
+        <button type="button"
+                title="Delete"
+                class="annotator-delete" ng-click='delete()'>Delete</button>
+      </span>
+      <div ng-bind='annotation.text'></div>
+    </li>
+  </ul>
+</div>
